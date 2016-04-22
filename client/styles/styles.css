@@ -7,6 +7,7 @@
   height: 50px;
   border: 1px solid black;
   cursor: pointer;
+  text-align: center;
 }
 
 .day:hover {

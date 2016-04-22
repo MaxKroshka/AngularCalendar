@@ -65,7 +65,7 @@ angular.module('calendar.services', [])
         number: date.date(),
         isCurrentMonth: date.format('M') === month,
         isToday: date.isSame(new Date(), 'day'),
-        date: date
+        date: moment(date._d)
       });
       date = date.clone();
       date.add(1, 'day');
