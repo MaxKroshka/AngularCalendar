@@ -24,16 +24,17 @@
     </div>
     <div class='row week' ng-repeat='week in weeks'>
       <div class='col s1 day' ng-repeat='day in week.days' ng-click='selectDay(day)'>
-        <span ng-class="{'faded': !day.isCurrentMonth, 'hasEvents': month[day.date.clone().format('L')]}">{{day.number}}</span>
+        <span class='row' ng-class="{'faded': !day.isCurrentMonth, 'hasEvents': month[day.date.clone().format('L')]}">{{day.number}}</span>
+        <i class="material-icons tiny row" ng-show="month[day.date.clone().format('L')]">lens</i>
       </div>
     </div>
   </div>
   <div id='events' class='col s12 m6'>
     <div class="row options">
-      <div class='col s6 option' ng-class="{'selected': showList}" ng-click='showList = !showList'>
+      <div class='col s6 option' ng-class="{'selected': showList}" ng-click='toggleView()'>
         List of Events
       </div>
-      <div class='col s6 option' ng-class="{'selected': !showList}" ng-click='showList = !showList'>
+      <div class='col s6 option' ng-class="{'selected': !showList}" ng-click='toggleView()'>
         Add Event
       </div>
     </div>
@@ -44,17 +45,17 @@
         </div>
         <div class='row'>
           <div class="input-field form-group col s6" ng-class="{ 'has-error' : eventForm.date.$invalid && !eventForm.date.$pristine }">
-            <input id='event-date' type="date" name='date' class="form-control" ng-model='event.date' required>
+            <input id='event-date' type="date" name='date' class="form-control" ng-model="event.originalDate" required>
           </div>
           <div class="input-field form-group col s6" ng-class="{ 'has-error' : eventForm.time.$invalid && !eventForm.time.$pristine }">
-            <input id='event-date' type="time" name='time' class="form-control" ng-model='event.time' required>
+            <input id='event-date' type="time" name='time' class="form-control" ng-model='event.originalTime' required>
           </div>
         </div>
         <div class="input-field form-group">
           <input id='event-description' type="text" name='description' placeholder='Event description' class="form-control" ng-model='event.description' required>
         </div>
         <div class='row'>
-          <button type="submit" class="waves-effect waves-light btn col s12">Add Event</button>
+          <button type="submit" class="waves-effect waves-light btn col s12">Done</button>
         </div>
       </form>
     </div>
@@ -67,7 +68,7 @@
           <div class='col s10'>
             <h5>{{event.name}}</h5>
             <p>{{event.description}}</p>
-            <i class="material-icons tools" ng-click='updateEvent(event)'>edit</i>
+            <i class="material-icons tools" ng-click='toggleView(event)'>edit</i>
             <i class="material-icons tools" ng-click='removeEvent(event)'>delete_forever</i>
           </div>
           <hr>
