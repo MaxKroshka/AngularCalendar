@@ -1,0 +1,46 @@
+<h1 class='logo'> Calendar</h1>
+<nav>
+  <div class='nav-wrapper'>
+    <ul class='left'>
+      <li><a href='#/' class="waves-effect waves-light btn" ng-click='changeView("year")'>Year</a></li>
+      <li><a href='#/' class="waves-effect waves-light btn" ng-click='changeView("month")'>Month</a></li>
+      <li><a href='#/' class="waves-effect waves-light btn" ng-click='changeView("day")'>Day</a></li>
+    </ul>
+  </div>
+</nav>
+<div class='row'>
+  <div id='calendar' class='col s6'>
+    <div class="row header week">
+      <a class='btn' ng-click='changeMonth(false)'><i class="material-icons">keyboard_arrow_left</i></a>
+      <span>{{dateNow.format("MMMM, YYYY")}}</span>
+      <a class='btn' ng-click='changeMonth(true)'><i class="material-icons">keyboard_arrow_right</i></a>
+    </div>
+    <div class="row week names">
+      <div class='col s1 day'>Sun</div>
+      <div class='col s1 day'>Mon</div>
+      <div class='col s1 day'>Tue</div>
+      <div class='col s1 day'>Wed</div>
+      <div class='col s1 day'>Thu</div>
+      <div class='col s1 day'>Fri</div>
+      <div class='col s1 day'>Sat</div>
+    </div>
+    <div class='row week' ng-repeat='week in weeks'>
+      <div class='col s1 day' ng-repeat='day in week.days' ng-click='selectDay(day)'>
+        <span ng-class="{'faded': !day.isCurrentMonth}">{{day.number}}</span>
+      </div>
+    </div>
+  </div>
+  <div id='events' class='col s6'>
+  <p> Events for {{selectedDay.format('MMMM Do YYYY')}}</p>
+  <input placeholder="Event name" ng-model='event.name'>
+    <input placeholder="Event time" ng-model='event.time'>
+  <input placeholder="Event description" ng-model='event.description'>
+  <ul>
+    <li ng-repeat='event in events'>
+      <h4>event.name</h4>
+      <p>event.time</p>
+      <p>event.description</p>
+    </li>
+  </ul>
+  </div>
+</div>
