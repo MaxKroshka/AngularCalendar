@@ -2,10 +2,10 @@ angular.module('calendar.services', [])
 
 .factory('Events', function($http) {
 
-  var getEvents = function() {
+  var getEvents = function(month) {
     return $http({
       method: 'GET',
-      url: 'api/events'
+      url: 'api/events?month=' + month
     }).then(function(res) {
       return res.data;
     });
@@ -21,16 +21,16 @@ angular.module('calendar.services', [])
 
   var removeEvent = function(event) {
     return $http({
-      method: 'POST',
-      url: 'api/events/remove',
-      data: event
+      method: 'DELETE',
+      url: 'api/events',
+      params: event
     });
   };
 
   var updateEvent = function(event) {
     return $http({
       method: 'PUT',
-      url: 'api/events/update',
+      url: 'api/events',
       data: event
     });
   };
