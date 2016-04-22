@@ -1,12 +1,15 @@
 var Event = require('./eventModel.js');
+var utils = require('../config/utils.js');
+var mongoose = require('mongoose');
 
 module.exports = {
 
   getEvents: function(req, res) {
-    var date = req.date;
-    Event.find({ date: date })
+    var month = req.query.month;
+    Event.find({ month: month })
       .then(function(events) {
-        res.json(events);
+        var eventsObject = utils.createEventsObject(events);
+        res.json(eventsObject);
       })
       .catch(function(error) {
         console.error('There was an error retrieving events', error);
@@ -14,32 +17,38 @@ module.exports = {
   },
 
   addEvent: function(req, res) {
-    var event = req.body.event;
-    Event.create(event)
-      .then(function(createdEvent) {
-        if (createdEvent) {
-          res.json(createdEvent);
-        }
-      })
-      .catch(function(error) {
-        console.error('There was an error creating event', error);
-      });
+    var event = req.body;
+    if (event) {
+      Event.create(event)
+        .then(function(createdEvent) {
+          if (createdEvent) {
+            res.json(createdEvent);
+          }
+        })
+        .catch(function(error) {
+          console.error('There was an error creating event', error);
+        });
+    } else {
+      res.send(404);
+    }
   },
 
-  updateEvent: function(req, res, next) {
-    var event = req.body.event;
-    Event.update({ name: event.name })
+  updateEvent: function(req, res) {
+    var eventID = req.body._id;
+    var event = req.body;
+    event.remove('_id');
+    Event.update({ _id: mongoose.Types.ObjectId(eventID)}, event)
       .then(function(updatedEvent) {
         res.json(updatedEvent);
       })
-      .catch(function(err) {
+      .catch(function(error) {
         console.error('There was an error updating event', error);
       });
   },
 
-  removeEvent: function(req, res, next) {
-    var event = req.body.event;
-    Event.findOne({ name: event.name, date: event.date })
+  removeEvent: function(req, res) {
+    var eventID = req.query._id;
+    Event.findOne({ _id: mongoose.Types.ObjectId(eventID)})
       .then(function(foundEvent) {
         return foundEvent.remove();
       })
@@ -47,7 +56,7 @@ module.exports = {
         res.json();
         console.log('removed');
       })
-      .catch(function(err) {
+      .catch(function(error) {
         console.error('There was an error removing event', error);
       });
   }
