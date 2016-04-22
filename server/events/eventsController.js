@@ -36,7 +36,7 @@ module.exports = {
   updateEvent: function(req, res) {
     var eventID = req.body._id;
     var event = req.body;
-    event.remove('_id');
+    delete event['_id'];
     Event.update({ _id: mongoose.Types.ObjectId(eventID)}, event)
       .then(function(updatedEvent) {
         res.json(updatedEvent);
