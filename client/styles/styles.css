@@ -6,6 +6,11 @@
 .day {
   height: 50px;
   border: 1px solid black;
+  cursor: pointer;
+}
+
+.day:hover {
+  background-color: #3498db;
 }
 
 .s1 {
@@ -28,4 +33,55 @@
 
 .faded {
   color: lightgrey;
+}
+
+.arrow {
+ background-color: #3498db;
+ height: 100%;
+}
+
+.arrow:hover {
+  background-color: #3498db;
+}
+
+.options {
+  padding: 5px;
+  margin-top: 20px;
+}
+
+.option {
+  border: 1px solid black;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #3498db;
+}
+
+.time {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.selectedDay {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+nav {
+  background-color: #34495e;
+}
+.btn, .btn:hover, .btn:active, .btn:visited {
+  background-color: #3498db;
+}
+
+.hasEvents {
+  font-weight: bold;
+}
+
+.tools {
+  cursor: pointer;
 }

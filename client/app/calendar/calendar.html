@@ -1,19 +1,17 @@
-<h1 class='logo'> Calendar</h1>
 <nav>
   <div class='nav-wrapper'>
     <ul class='left'>
       <li><a href='#/' class="waves-effect waves-light btn" ng-click='changeView("year")'>Year</a></li>
       <li><a href='#/' class="waves-effect waves-light btn" ng-click='changeView("month")'>Month</a></li>
-      <li><a href='#/' class="waves-effect waves-light btn" ng-click='changeView("day")'>Day</a></li>
     </ul>
   </div>
 </nav>
 <div class='row'>
-  <div id='calendar' class='col s6'>
+  <div id='calendar' class='col s12 m6'>
     <div class="row header week">
-      <a class='btn' ng-click='changeMonth(false)'><i class="material-icons">keyboard_arrow_left</i></a>
-      <span>{{dateNow.format("MMMM, YYYY")}}</span>
-      <a class='btn' ng-click='changeMonth(true)'><i class="material-icons">keyboard_arrow_right</i></a>
+      <a class='btn left arrow' ng-click='changeMonth(false)'><i class="material-icons">keyboard_arrow_left</i></a>
+      <span>{{selectedMonth.format("MMMM, YYYY")}}</span>
+      <a class='btn right arrow' ng-click='changeMonth(true)'><i class="material-icons">keyboard_arrow_right</i></a>
     </div>
     <div class="row week names">
       <div class='col s1 day'>Sun</div>
@@ -26,21 +24,55 @@
     </div>
     <div class='row week' ng-repeat='week in weeks'>
       <div class='col s1 day' ng-repeat='day in week.days' ng-click='selectDay(day)'>
-        <span ng-class="{'faded': !day.isCurrentMonth}">{{day.number}}</span>
+        <span ng-class="{'faded': !day.isCurrentMonth, 'hasEvents': month[day.date.clone().format('L')]}">{{day.number}}</span>
       </div>
     </div>
   </div>
-  <div id='events' class='col s6'>
-  <p> Events for {{selectedDay.format('MMMM Do YYYY')}}</p>
-  <input placeholder="Event name" ng-model='event.name'>
-    <input placeholder="Event time" ng-model='event.time'>
-  <input placeholder="Event description" ng-model='event.description'>
-  <ul>
-    <li ng-repeat='event in events'>
-      <h4>event.name</h4>
-      <p>event.time</p>
-      <p>event.description</p>
-    </li>
-  </ul>
+  <div id='events' class='col s12 m6'>
+    <div class="row options">
+      <div class='col s6 option' ng-class="{'selected': showList}" ng-click='showList = !showList'>
+        List of Events
+      </div>
+      <div class='col s6 option' ng-class="{'selected': !showList}" ng-click='showList = !showList'>
+        Add Event
+      </div>
+    </div>
+    <div id='addEvent' ng-show='!showList'>
+      <form name="eventForm" ng-submit="addEvent()" novalidate>
+        <div class="input-field form-group" ng-class="{ 'has-error' : eventForm.name.$invalid && !eventForm.name.$pristine }">
+          <input id='event-name' type='text' name='name' class='form-control, validate' placeholder='Event name' ng-model='event.name' required>
+        </div>
+        <div class='row'>
+          <div class="input-field form-group col s6" ng-class="{ 'has-error' : eventForm.date.$invalid && !eventForm.date.$pristine }">
+            <input id='event-date' type="date" name='date' class="form-control" ng-model='event.date' required>
+          </div>
+          <div class="input-field form-group col s6" ng-class="{ 'has-error' : eventForm.time.$invalid && !eventForm.time.$pristine }">
+            <input id='event-date' type="time" name='time' class="form-control" ng-model='event.time' required>
+          </div>
+        </div>
+        <div class="input-field form-group">
+          <input id='event-description' type="text" name='description' placeholder='Event description' class="form-control" ng-model='event.description' required>
+        </div>
+        <div class='row'>
+          <button type="submit" class="waves-effect waves-light btn col s12">Add Event</button>
+        </div>
+      </form>
+    </div>
+    <div id='eventList' ng-show='showList'>
+      <p class='selectedDay'> Events for {{selectedDay.format('MMMM Do YYYY')}}</p>
+      <p ng-show='!events'> There are no events scheduled for this day </p>
+      <ul>
+        <li class='row event' ng-repeat='event in events'>
+          <p class='col s2 time'>{{event.time}}</p>
+          <div class='col s10'>
+            <h5>{{event.name}}</h5>
+            <p>{{event.description}}</p>
+            <i class="material-icons tools" ng-click='updateEvent(event)'>edit</i>
+            <i class="material-icons tools" ng-click='removeEvent(event)'>delete_forever</i>
+          </div>
+          <hr>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
