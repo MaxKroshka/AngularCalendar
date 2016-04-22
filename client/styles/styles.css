@@ -1,0 +1,31 @@
+.week {
+  margin-bottom: 0px;
+  height: 50px;
+}
+
+.day {
+  height: 50px;
+  border: 1px solid black;
+}
+
+.s1 {
+  width: 14.285714285714285714285714285714% !important;
+  *width: 14.285714285714285714285714285714% !important;
+}
+
+.names {
+  text-align: center;
+}
+
+#calendar {
+  margin-top: 20px;
+}
+
+.header {
+  text-align: center;
+  background-color: #3498db;
+}
+
+.faded {
+  color: lightgrey;
+}
