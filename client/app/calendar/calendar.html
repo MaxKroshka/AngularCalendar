@@ -1,16 +1,11 @@
-<nav>
-  <div class='nav-wrapper'>
-    <a href="#/" class="brand-logo">Calendar</a>
-  </div>
-</nav>
 <div class='row'>
   <div id='calendar' class='col s12 m6'>
     <div class="row header week">
       <a class='btn left arrow' ng-click='changeMonth(false)'><i class="material-icons">keyboard_arrow_left</i></a>
-      <span class='month'>{{selectedMonth.format("MMMM, YYYY")}}</span>
+      <span>{{selectedMonth.format("MMMM, YYYY")}}</span>
       <a class='btn right arrow' ng-click='changeMonth(true)'><i class="material-icons">keyboard_arrow_right</i></a>
     </div>
-    <div class="row week names">
+    <div class="row week">
       <div class='col s1 day'>Sun</div>
       <div class='col s1 day'>Mon</div>
       <div class='col s1 day'>Tue</div>
@@ -26,7 +21,7 @@
       </div>
     </div>
   </div>
-  <div id='events' class='col s12 m6'>
+  <div class='col s12 m6'>
     <div class="row options">
       <div class='col s6 option' ng-class="{'selected': showList}" ng-click='toggleView(true)'>
         List of Events
@@ -35,7 +30,7 @@
         Add Event
       </div>
     </div>
-    <div id='addEvent' ng-show='!showList'>
+    <div ng-show='!showList'>
       <form name="eventForm" ng-submit="addEvent()" novalidate>
         <div class="input-field form-group" ng-class="{ 'has-error' : eventForm.name.$invalid && !eventForm.name.$pristine }">
           <input id='event-name' type='text' name='name' class='form-control, validate' placeholder='Event name' ng-model='event.name' required>
@@ -56,19 +51,19 @@
         </div>
       </form>
     </div>
-    <div id='eventList' ng-show='showList'>
+    <div class='eventList' ng-show='showList'>
       <p class='selectedDay'> Events for {{selectedDay.format('MMMM Do YYYY')}}</p>
       <p ng-show='!events'> There are no events scheduled for this day </p>
       <ul>
         <li class='row event' ng-repeat='event in events'>
-        <div class='col s3 time'>
+          <div class='col s3 time'>
             <p>{{event.time ? event.time : 'All Day'}}</p>
             <i class="material-icons tools" ng-click='toggleView(false, event)'>edit</i>
             <i class="material-icons tools" ng-click='removeEvent(event)'>delete_forever</i>
           </div>
           <div class='col s9'>
             <h5>{{event.name}}</h5>
-            <p>{{event.description}}</p>
+            <span>{{event.description}}</span>
           </div>
           <hr>
         </li>

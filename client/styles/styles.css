@@ -1,27 +1,17 @@
-.week {
-  margin-bottom: 0px;
-  height: 50px;
+/*--GENERAL--*/
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.day {
-  height: 50px;
-  border: 1px solid black;
-  cursor: pointer;
-  text-align: center;
+nav {
+  background-color: #34495e;
 }
 
-.day:hover {
-  background-color: #3498db;
-}
-
-.s1 {
-  width: 14.285714285714285714285714285714% !important;
-  *width: 14.285714285714285714285714285714% !important;
-}
-
-.names {
-  text-align: center;
-}
+/*--CALENDAR VIEW --*/
 
 #calendar {
   margin-top: 1em;
@@ -30,15 +20,14 @@
 .header {
   text-align: center;
   background-color: #3498db;
-}
-
-.faded {
-  color: lightgrey;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 2.5em;
 }
 
 .arrow {
- background-color: #3498db;
- height: 100%;
+  background-color: #3498db;
+  height: 100%;
 }
 
 .arrow i {
@@ -50,11 +39,33 @@
   background-color: #3498db;
 }
 
-.month {
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
+.week {
+  margin-bottom: 0px;
+  height: 50px;
 }
+
+.day {
+  height: 50px;
+  border: 1px solid black;
+  cursor: pointer;
+  text-align: center;
+  width: 14.285714285714285714285714285714% !important;
+  *width: 14.285714285714285714285714285714% !important;
+}
+
+.day:hover {
+  background-color: #3498db;
+}
+
+.faded {
+  color: lightgrey;
+}
+
+.hasEvents {
+  font-weight: bold;
+}
+
+/*--SIDE VIEW--*/
 
 .options {
   padding: 0.05em;
@@ -71,38 +82,34 @@
 }
 
 .option::selection {
-    color: none;
-    background: none;
+  color: none;
+  background: none;
 }
 
+.eventList p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.time {
+  text-align: center;
+
+}
+.tools {
+  cursor: pointer;
+}
+
+/*--SHARED STYLES--*/
 .selected {
   background-color: #3498db;
   color: white;
 }
 
-.time {
-  text-align: center;
-  font-size: 1em;
-  font-weight: bold;
-}
-
-.selectedDay {
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-nav {
-  background-color: #34495e;
-}
-.btn, .btn:hover, .btn:active, .btn:visited {
+.btn,
+.btn:hover,
+.btn:active,
+.btn:visited {
   background-color: #3498db;
 }
 
-.hasEvents {
-  font-weight: bold;
-}
-
-.tools {
-  cursor: pointer;
-}
