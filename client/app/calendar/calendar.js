@@ -32,7 +32,7 @@ angular.module('calendar.main', [])
     $scope.editing = false;
   };
 
-  $scope.toggleView = function(event) {
+  $scope.toggleView = function(list, event) {
     if (event) {
       var eventToEdit = Object.assign({}, event);
       eventToEdit.originalDate = new Date(eventToEdit.originalDate);
@@ -43,7 +43,7 @@ angular.module('calendar.main', [])
       $scope.event = {originalDate: new Date($scope.selectedDay)};
       $scope.editing = false;
     }
-    $scope.showList = !$scope.showList;
+    $scope.showList = list ? true : false;
   };
 
   $scope.removeEvent = function(event) {
@@ -64,17 +64,18 @@ angular.module('calendar.main', [])
   };
 
   $scope.selectDay = function(day) {
-    $scope.selectedDay = day.date;
+    $scope.selectedDay = day ? day.date : $scope.selectedDay;
     $scope.showList = true;
-    $scope.events = $scope.month[$scope.selectedDay.clone().format('L')].slice();
+    var eventsToday = $scope.month[$scope.selectedDay.clone().format('L')];
+    $scope.events = eventsToday ? $scope.month[$scope.selectedDay.clone().format('L')].slice() : null;
   };
 
   $scope.fetchMonth = function(date) {
     Events.getEvents($scope.selectedMonth.clone().format('MMMM'))
       .then(function(events) {
         $scope.month = events;
-        $scope.events = $scope.month[$scope.selectedDay.clone().format('L')].slice();
         date ? $scope.selectDay({date: moment(date)}) : null;
+        $scope.events === undefined ? $scope.selectDay() : null;
       })
       .catch(function(error) {
         console.log('There was an error getting events for this date');

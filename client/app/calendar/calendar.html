@@ -20,7 +20,7 @@
       <div class='col s1 day'>Sat</div>
     </div>
     <div class='row week' ng-repeat='week in weeks'>
-      <div class='col s1 day' ng-repeat='day in week.days' ng-click='selectDay(day)'>
+      <div class='col s1 day' ng-repeat='day in week.days' ng-click='selectDay(day)' ng-class="{'selected': day.date === selectedDay}">
         <span class='row' ng-class="{'faded': !day.isCurrentMonth, 'hasEvents': month[day.date.clone().format('L')]}">{{day.number}}</span>
         <i class="material-icons tiny row" ng-show="month[day.date.clone().format('L')]">lens</i>
       </div>
@@ -28,10 +28,10 @@
   </div>
   <div id='events' class='col s12 m6'>
     <div class="row options">
-      <div class='col s6 option' ng-class="{'selected': showList}" ng-click='toggleView()'>
+      <div class='col s6 option' ng-class="{'selected': showList}" ng-click='toggleView(true)'>
         List of Events
       </div>
-      <div class='col s6 option' ng-class="{'selected': !showList}" ng-click='toggleView()'>
+      <div class='col s6 option' ng-class="{'selected': !showList}" ng-click='toggleView(false)'>
         Add Event
       </div>
     </div>
@@ -63,7 +63,7 @@
         <li class='row event' ng-repeat='event in events'>
         <div class='col s3 time'>
             <p>{{event.time ? event.time : 'All Day'}}</p>
-            <i class="material-icons tools" ng-click='toggleView(event)'>edit</i>
+            <i class="material-icons tools" ng-click='toggleView(false, event)'>edit</i>
             <i class="material-icons tools" ng-click='removeEvent(event)'>delete_forever</i>
           </div>
           <div class='col s9'>
