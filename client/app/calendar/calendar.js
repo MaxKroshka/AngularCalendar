@@ -3,9 +3,9 @@ angular.module('calendar.main', [])
 .controller('MainCtrl', function($scope, MonthGenerator, Events) {
   $scope.selectedMonth = moment();
   $scope.selectedDay = moment();
-  $scope.event = {originalDate: new Date($scope.selectedDay)};
+  $scope.event = { originalDate: new Date($scope.selectedDay) };
   var firstDay = moment().date(1).day(0).day(0).hour(0).minute(0).second(0).millisecond(0);
-  $scope.weeks = MonthGenerator.buildMonth(firstDay, $scope.selectedMonth.format('M'));
+  $scope.weeks = MonthGenerator.buildMonth(firstDay, $scope.selectedMonth.clone().format('M'));
 
   $scope.addEvent = function() {
     var event = Object.assign({}, $scope.event);
@@ -40,7 +40,7 @@ angular.module('calendar.main', [])
       $scope.event = eventToEdit;
       $scope.editing = true;
     } else {
-      $scope.event = {originalDate: new Date($scope.selectedDay)};
+      $scope.event = { originalDate: new Date($scope.selectedDay) };
       $scope.editing = false;
     }
     $scope.showList = list ? true : false;
@@ -49,6 +49,7 @@ angular.module('calendar.main', [])
   $scope.removeEvent = function(event) {
     Events.removeEvent(event)
       .then(function(success) {
+        $scope.events = undefined;
         $scope.fetchMonth();
       })
       .catch(function(error) {
@@ -59,7 +60,7 @@ angular.module('calendar.main', [])
   $scope.changeMonth = function(direction) {
     $scope.selectedMonth = direction ? $scope.selectedMonth.add(1, 'month') : $scope.selectedMonth.subtract(1, 'month');
     firstDay = $scope.selectedMonth.clone().date(1).day(0).day(0).hour(0).minute(0).second(0).millisecond(0);
-    $scope.weeks = MonthGenerator.buildMonth(firstDay, $scope.selectedMonth.format('M'));
+    $scope.weeks = MonthGenerator.buildMonth(firstDay, $scope.selectedMonth.clone().format('M'));
     $scope.fetchMonth();
   };
 
@@ -74,7 +75,9 @@ angular.module('calendar.main', [])
     Events.getEvents($scope.selectedMonth.clone().format('MMMM'))
       .then(function(events) {
         $scope.month = events;
-        date ? $scope.selectDay({date: moment(date)}) : null;
+        if (date) {
+          $scope.selectedMonth.clone().format('M') === moment(date).format('M') ? $scope.selectDay({ date: moment(date) }) : $scope.selectDay();
+        }
         $scope.events === undefined ? $scope.selectDay() : null;
       })
       .catch(function(error) {
