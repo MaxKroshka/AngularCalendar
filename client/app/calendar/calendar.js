@@ -66,14 +66,14 @@ angular.module('calendar.main', [])
   $scope.selectDay = function(day) {
     $scope.selectedDay = day.date;
     $scope.showList = true;
-    $scope.events = $scope.month[$scope.selectedDay.clone().format('L')];
+    $scope.events = $scope.month[$scope.selectedDay.clone().format('L')].slice();
   };
 
   $scope.fetchMonth = function(date) {
     Events.getEvents($scope.selectedMonth.clone().format('MMMM'))
       .then(function(events) {
         $scope.month = events;
-        $scope.events = $scope.month[$scope.selectedDay.clone().format('L')];
+        $scope.events = $scope.month[$scope.selectedDay.clone().format('L')].slice();
         date ? $scope.selectDay({date: moment(date)}) : null;
       })
       .catch(function(error) {
