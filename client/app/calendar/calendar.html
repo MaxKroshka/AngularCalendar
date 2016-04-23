@@ -1,16 +1,13 @@
 <nav>
   <div class='nav-wrapper'>
-    <ul class='left'>
-      <li><a href='#/' class="waves-effect waves-light btn" ng-click='changeView("year")'>Year</a></li>
-      <li><a href='#/' class="waves-effect waves-light btn" ng-click='changeView("month")'>Month</a></li>
-    </ul>
+    <a href="#/" class="brand-logo">Calendar</a>
   </div>
 </nav>
 <div class='row'>
   <div id='calendar' class='col s12 m6'>
     <div class="row header week">
       <a class='btn left arrow' ng-click='changeMonth(false)'><i class="material-icons">keyboard_arrow_left</i></a>
-      <span>{{selectedMonth.format("MMMM, YYYY")}}</span>
+      <span class='month'>{{selectedMonth.format("MMMM, YYYY")}}</span>
       <a class='btn right arrow' ng-click='changeMonth(true)'><i class="material-icons">keyboard_arrow_right</i></a>
     </div>
     <div class="row week names">
@@ -55,7 +52,7 @@
           <input id='event-description' type="text" name='description' placeholder='Event description' class="form-control" ng-model='event.description' required>
         </div>
         <div class='row'>
-          <button type="submit" class="waves-effect waves-light btn col s12">Done</button>
+          <button type="submit" class="waves-effect waves-light btn col offset-s4 s4">Done</button>
         </div>
       </form>
     </div>
@@ -64,12 +61,14 @@
       <p ng-show='!events'> There are no events scheduled for this day </p>
       <ul>
         <li class='row event' ng-repeat='event in events'>
-          <p class='col s2 time'>{{event.time ? event.time : 'All Day'}}</p>
-          <div class='col s10'>
-            <h5>{{event.name}}</h5>
-            <p>{{event.description}}</p>
+        <div class='col s3 time'>
+            <p>{{event.time ? event.time : 'All Day'}}</p>
             <i class="material-icons tools" ng-click='toggleView(event)'>edit</i>
             <i class="material-icons tools" ng-click='removeEvent(event)'>delete_forever</i>
+          </div>
+          <div class='col s9'>
+            <h5>{{event.name}}</h5>
+            <p>{{event.description}}</p>
           </div>
           <hr>
         </li>

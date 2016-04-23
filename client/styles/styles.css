@@ -24,7 +24,7 @@
 }
 
 #calendar {
-  margin-top: 20px;
+  margin-top: 1em;
 }
 
 .header {
@@ -42,17 +42,25 @@
 }
 
 .arrow i {
-  margin-top: 5px;
-  font-size: 30px;
+  margin-top: 0.25em;
+  font-size: 2em;
 }
 
 .arrow:hover {
   background-color: #3498db;
 }
 
+.month {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
 .options {
-  padding: 5px;
-  margin-top: 20px;
+  padding: 0.05em;
+  margin-top: 1em;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .option {
@@ -69,11 +77,12 @@
 
 .selected {
   background-color: #3498db;
+  color: white;
 }
 
 .time {
   text-align: center;
-  font-size: 18px;
+  font-size: 1em;
   font-weight: bold;
 }
 
