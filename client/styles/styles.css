@@ -41,6 +41,11 @@
  height: 100%;
 }
 
+.arrow i {
+  margin-top: 5px;
+  font-size: 30px;
+}
+
 .arrow:hover {
   background-color: #3498db;
 }
@@ -57,12 +62,18 @@
   cursor: pointer;
 }
 
+.option::selection {
+    color: none;
+    background: none;
+}
+
 .selected {
   background-color: #3498db;
 }
 
 .time {
-  font-size: 22px;
+  text-align: center;
+  font-size: 18px;
   font-weight: bold;
 }
 

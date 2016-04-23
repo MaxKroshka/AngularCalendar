@@ -3,7 +3,6 @@ angular.module('calendar.main', [])
 .controller('MainCtrl', function($scope, MonthGenerator, Events) {
   $scope.selectedMonth = moment();
   $scope.selectedDay = moment();
-  console.log($scope.selectedDay);
   $scope.event = {originalDate: new Date($scope.selectedDay)};
   var firstDay = moment().date(1).day(0).day(0).hour(0).minute(0).second(0).millisecond(0);
   $scope.weeks = MonthGenerator.buildMonth(firstDay, $scope.selectedMonth.format('M'));
@@ -11,7 +10,7 @@ angular.module('calendar.main', [])
   $scope.addEvent = function() {
     var event = Object.assign({}, $scope.event);
     event.date = moment($scope.event.originalDate).clone().format('L');
-    event.time = moment($scope.event.originalTime).clone().format('LT');
+    event.time = $scope.event.originalTime ? moment($scope.event.originalTime).clone().format('LT') : null;
     event.month = moment($scope.event.originalDate).clone().format('MMMM');
     if ($scope.editing) {
       Events.updateEvent(event)

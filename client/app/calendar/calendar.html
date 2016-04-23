@@ -64,7 +64,7 @@
       <p ng-show='!events'> There are no events scheduled for this day </p>
       <ul>
         <li class='row event' ng-repeat='event in events'>
-          <p class='col s2 time'>{{event.time}}</p>
+          <p class='col s2 time'>{{event.time ? event.time : 'All Day'}}</p>
           <div class='col s10'>
             <h5>{{event.name}}</h5>
             <p>{{event.description}}</p>
